@@ -76,7 +76,18 @@
     group: root
     mode: "0644"
   notify: restart slapd
+  when: ansible_distribution == "Centos"
 
+- name: Configure slapd.conf
+  template:
+    src: slapd.conf.j2
+    dest: /etc/ldap/slapd.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: restart slapd
+  when: ansible_distribution == "Ubuntu"
+  
 - name: Start and enable slapd
   service:
     name: slapd

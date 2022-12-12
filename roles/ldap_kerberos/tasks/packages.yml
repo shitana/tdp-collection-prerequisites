@@ -5,4 +5,3 @@
 - name: Install packages
   package:
     name: "{{ lookup('vars', 'packages_ldap_kerberos_' + ansible_distribution)}}"
-

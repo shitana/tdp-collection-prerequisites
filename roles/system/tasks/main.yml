@@ -3,9 +3,6 @@
 
 ---
 - import_tasks: hosts.yml
-- debug:
-    var: ansible_distribution
-    
 - import_tasks: packages-Ubuntu.yml
   when: ansible_distribution == "Ubuntu"
   tags: 
