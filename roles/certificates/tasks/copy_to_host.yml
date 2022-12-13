@@ -18,7 +18,7 @@
   register: copy_ca
 
 - name: Update host trusted Certificate Authorities
-  shell: update-ca-trust extract
+  shell: "{{ update_ca_command_{{ ansible_distribution }} }} extract"
   when: copy_ca.changed
 
 - name: Copy certificate to host

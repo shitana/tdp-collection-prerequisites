@@ -22,6 +22,12 @@
     remote_src: yes
   vars:
     kerberos_schema_version: "{{ ( (ansible_distribution_major_version | int) < 8) | ternary('-' + reg_klist.stdout.split(' ')[-1],'') }}"
+  when: ansible_distribution == "Centos"
+
+- name: Copy kerberos schema to ldap folder
+  shell: "cp /usr/share/doc/krb5-kdc-ldap/kerberos.schema.gz /etc/ldap/schema/;\
+   gunzip -f /etc/ldap/schema/kerberos.schema.gz"
+  when: ansible_distribution == "Ubuntu"
 
 - name: Copy TLS key pair to ldap folder
   copy:
@@ -50,6 +56,17 @@
     group: root
     mode: "0644"
   notify: restart slapd
+  when: ansible_distribution == "Centos"
+
+- name: Configure slapd.conf
+  template:
+    src: slapd.conf.j2
+    dest: /etc/ldap/slapd.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: restart slapd
+  when: ansible_distribution == "Ubuntu"
 
 - name: Configure /etc/sysconfig/slapd
   template:

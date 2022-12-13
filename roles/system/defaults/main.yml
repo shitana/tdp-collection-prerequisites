@@ -12,7 +12,6 @@ proxy_env:
 
 default_packages:
   common:
-    - tar
     - vim
     - java-1.8.0-openjdk
     - wget
@@ -23,13 +22,23 @@ default_packages:
     - python3
     - python3-pip
     - python3-setuptools
-    - python3-virtualenv
+  ubuntu:
+    - vim
+    - tar
+    - openjdk-8-jdk #java-1.8.0-openjdk
+    - wget
+    - curl
+    - unzip
+    - expect
+    - python3
+    - python3-pip
+    - python3-setuptools
+    - python3-cryptography
   legacy: # centos 7 and below
     # Installing python2-setuptools required by the Ansible pip module
     - authconfig
     - python2-setuptools
     - python2-cryptography
-    - python2-virtualenv
   modern: # centos 8 and above
     - authselect
     - python2

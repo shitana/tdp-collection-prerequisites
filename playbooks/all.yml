@@ -4,6 +4,19 @@
 ---
 - import_playbook: system.yml
 - import_playbook: chrony.yml
+  when: ansible_distribution == "Centos"
+  tags: 
+    - packages
+## Update / configure NTP Server for Ubuntu 
+# - import_playbook: ntp.yml
+#   when: ansible_distribution == "Ubuntu"
+#   tags: 
+#     - packages
+##
 - import_playbook: certificates.yml
+  when: custom_certificate_name is not defined
+  tags:
+    - ssl
 - import_playbook: ldap_kerberos.yml
+  when: ansible_distribution == "Centos"
 - import_playbook: postgresql.yml

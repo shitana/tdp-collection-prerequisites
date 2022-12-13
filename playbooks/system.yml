@@ -3,6 +3,10 @@
 
 ---
 - hosts: all
+#### SHITANA #####
+  gather_facts: True
+  become: true
+#### END SHITANA #####
   tasks:
     - import_role:
         name: tosit.tdp_prerequisites.system

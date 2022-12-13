@@ -7,7 +7,8 @@
     name: "{{ postgresql_public_repo_rpm_url }}"
     disable_gpg_check: yes
   environment: "{{ proxy_env }}"
-  when: postgresql_use_public_repo
+  when: 
+    - postgresql_use_public_repo and ansible_distribution != 'Ubuntu'
   notify: yum makecache
 
 - meta: flush_handlers

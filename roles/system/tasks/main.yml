@@ -3,7 +3,22 @@
 
 ---
 - import_tasks: hosts.yml
-- import_tasks: packages.yml
+- debug:
+    var: ansible_distribution
+    
+- import_tasks: packages-Ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
+  tags: 
+    - packages
+
+- import_tasks: packages-Centos.yml
+  when: ansible_distribution == "Centos"
+  tags: 
+    - packages
+
 - import_tasks: java_home.yml
 - import_tasks: disable_firewalld.yml
+  when: ansible_distribution == "Centos"
+  tags: 
+    - firewall
 - import_tasks: python_pip.yml
